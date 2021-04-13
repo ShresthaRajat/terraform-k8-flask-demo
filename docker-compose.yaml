@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  k8f:
+    image: k8f
+    restart: always
+    build:
+      context: .
+    ports:
+      - 80:80
