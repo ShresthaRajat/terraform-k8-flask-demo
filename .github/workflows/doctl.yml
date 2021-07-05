@@ -4,8 +4,14 @@ on:
   push:
     branches: [ master ]
     paths:
+      - 'config/**'
+      - 'site/**'
       - 'Dockerfile'
       - '.github/workflows/**'
+
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: frontend-`date +\%Y-\%m-\%d--\%H\%M`
 
 jobs:
   build:
@@ -16,6 +22,8 @@ jobs:
     - name: Checkout master
       uses: actions/checkout@master
 
-    - name: Build the Docker image
-      run: docker build . --file dockerfile --tag frontend-`date +\%Y-\%m-\%d--\%H\%M`    
-    
+    # - name: Update SHA
+    #   run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+
+    - name: Build image
+      run: docker build -t $IMAGE_NAME .
