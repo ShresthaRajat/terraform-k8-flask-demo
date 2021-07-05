@@ -27,7 +27,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Test with environment variables
-      run: docker build -t $RELEASE_NAME-"date +\%Y-\%m-\%d--\%H\%M" .
+      run: docker build -t $RELEASE_NAME .
       env:
         RELEASE_NAME: frontend-${{ steps.date.outputs.date }}
 
