@@ -1,0 +1,19 @@
+name: doctl
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'Dockerfile'
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    name: Build, push, and deploy
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout master
+      uses: actions/checkout@master
+    
+    
