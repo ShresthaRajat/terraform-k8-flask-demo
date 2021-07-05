@@ -19,7 +19,7 @@ jobs:
 
     - name: Get current date time    
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d--%H%M')"
+      run: echo "::set-output name=date:-$(date +'%Y-%m-%d--%H%M')"
     
     - name: Checkout master
       uses: actions/checkout@master
