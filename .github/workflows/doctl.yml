@@ -19,15 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Get current date    
+    - name: Get current date time    
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-\%m-\%d--\%H\%M')"
-
-    - name: Test with environment variables
-      run: echo $TAG_NAME - $RELEASE_NAME
-      env:
-        TAG_NAME: nightly-tag-${{ steps.date.outputs.date }}
-        RELEASE_NAME: nightly-release-${{ steps.date.outputs.date }}
-
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d--%H%M')"
+    
     - name: Checkout master
       uses: actions/checkout@master
+
+    - name: Test with environment variables
+      run: docker build -t $RELEASE_NAME-"date +\%Y-\%m-\%d--\%H\%M" .
+      env:
+        RELEASE_NAME: frontend-${{ steps.date.outputs.date }}
+
+    
