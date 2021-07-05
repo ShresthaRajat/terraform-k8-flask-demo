@@ -26,9 +26,5 @@ jobs:
     - name: Checkout master
       uses: actions/checkout@master
 
-    - name: Test with environment variables
-      run: docker build -t $RELEASE_NAME .
-      env:
-        RELEASE_NAME: frontend-${{ steps.date.outputs.date }}
-
-    
+    - name: Build image
+      run: docker build -t frontend-${{ steps.date.outputs.date }} .
