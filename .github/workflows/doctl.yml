@@ -1,4 +1,4 @@
-name: doctl
+name: test
 
 on:
   push:
@@ -25,11 +25,31 @@ jobs:
       uses: actions/checkout@master
 
     - name: Build image
-      run: docker build -t ghcr.io/shrestharajat/frontend-${{ steps.date.outputs.date }} .
+      run: docker build -t ghcr.io/shrestharajat/frontend:${{ steps.date.outputs.date }} .
     
     - name: Log into registry
       run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     
     - name: Push to GHCR
       run: docker push ghcr.io/shrestharajat/frontend-${{ steps.date.outputs.date }}
+
+#     - name: Install doctl
+#       uses: digitalocean/action-doctl@v2
+#       with:
+#         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    
+#     - name: Save DigitalOcean kubeconfig with short-lived credentials
+#       run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 actions-example-k8s-1-18
+    - name: See deployment
+      run: cat deployment.yaml
+    
+#     - name: Modify image name on deployment
+#       run: sed -i 's/ghcr.io\/buyitlive\/frontend:latest-6/ghcr.io\/buyitlive\/frontend:${{ steps.date.outputs.date }}/' deployment/dev/frontend/deployment.yaml
+
+#     - name: Deploy to DigitalOcean Kubernetes
+#       run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yml
+
+#     - name: Verify deployment
+#       run: kubectl rollout status deployment/static-example
+    
 
