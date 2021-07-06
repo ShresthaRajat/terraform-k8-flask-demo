@@ -20,7 +20,7 @@ jobs:
 
     - name: Get current date time    
       id: date
-      run: echo "::set-output name=date::$GITHUB_RUN_NUMBER"
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d--')$GITHUB_RUN_NUMBER"
     
     - name: Checkout master
       uses: actions/checkout@master
